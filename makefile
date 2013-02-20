@@ -1,4 +1,4 @@
 # makefle for pdflatex
 
-Homework1.pdf: Homework1.tex
-	pdflatex Homework1
+hwk01.pdf: hwk01.tex preamble.tex
+	pdflatex hwk01

@@ -1,0 +1,72 @@
+% Another example tex file
+% Oberlin College
+% Isaac Hollander McCreery
+
+\documentclass[11pt]{amsart}
+
+% document information
+\newcommand{\hwk}{1}
+\newcommand{\honor}{We affirm that we have adhered to the honor code on this assignment.}
+
+\input{preamble}
+
+\begin{document}
+\maketitle
+
+\section*{Part 1: Search Problem Formulation}
+
+\section*{Part 2: Heuristic Functions}
+
+\emph{Theorem.}
+If a heuristic is consistent, then it must be admissible.
+
+\begin{proof}
+Suppose that the heuristic $h: Q \rightarrow \mathbb{R}^+$, where $Q$ is the state space for a given
+problem, is consistent.  Then for any $n \in Q$, $h(n) \leq c(n, a, n') + h(n')$ for all successors
+$n'$ of $n$, where $c(n, a, n')$ is the cost of moving from $n$ to $n'$.  But, similarly, $h(n') \leq
+c(n', a, n'') + h(n'')$ for all successors $n''$ of $n'$.  We may continue in this fashion until we
+get to some successor $n^k$ that is a goal state, and whose heuristic is zero:
+\[
+h(n) \leq c(n, a, n') + h(n') \leq c(n, a, n') + c(n', a, n'') + h(n'') \leq \dots \leq
+\sum_{i = 1}^k c(n^{i-1}, a, n^i),
+\]
+but one of such sums is the minimum cost path from $n$ to a goal state $n^k$, so
+\[
+h(n) \leq \sum_{i = 1}^k c(n^{i-1}, a, n^i) = h^*(n),
+\]
+and thus $h$ is admissible.
+\end{proof}
+
+\emph{Theorem.}
+If a heuristic is admissible, then it is not necessarily consistent.
+
+\begin{proof}
+Consider the following example:
+
+\vspace*{1in}
+
+where $h(n) = 3$ and $h(n') = 1$.  Then $h(n) = 3 = h^*(n)$ and $h(n') = 1 \leq 2 = h^*(n')$,
+so $h$ is admissible.  However, $h(n) = 3 \nleq 2 = c(n, a, n') + h(n')$, so $h$ is not consistent.
+\end{proof}
+
+\section*{Part 3: Advanced Search}
+
+\subsection*{Hill-climbing}  Given a graph $G$, a state $s \subseteq V(G)$ is some clique in $G$
+with at least one vertex.  A neighbor of $s$ is any $s' = s \cup \{y\} \subseteq V(G)$ where $y$ is a
+neighbor of all vertices in $s$.
+
+Start at $s = \{x\}$ for some random vertex $x \in V(G)$.  Move to any neighbor $s'$ by adding a
+vertex $y$ that is a neighbor of all vertices in $s$.  Repeat until there is no neighbor $y$ to add,
+and return.
+
+\subsection*{Simulated annealing}
+
+\subsection*{Genetic}
+
+\section*{Part 4: AI in the World}
+
+\section*{Part 5: Project Prep}
+
+\honor
+
+\end{document}
