@@ -19,7 +19,39 @@
 
 \item
 
+\begin{description}
+
+\item[State space]
+
+\item[Start state]
+
+\item[Available actions]
+
+\item[Successor function]
+
+\item[Goal test]
+
+\item[Cost function]
+
+\end{description}
+
 \item
+
+\begin{description}
+
+\item[State space]
+
+\item[Start state]
+
+\item[Available actions]
+
+\item[Successor function]
+
+\item[Goal test]
+
+\item[Cost function]
+
+\end{description}
 
 \item
 
@@ -41,9 +73,10 @@
 \item[Successor function] the state reached by applying an available action
 % TODO is this allowed? do we need more?
 
-\item[Goal test]: is $b = 4$?
+\item[Goal test] is $b = 4$?
 
-\item[Cost function]: uniform cost; any action costs 1
+\item[Cost function] uniform cost; any action costs 1
+
 \end{description}
 
 \item
@@ -71,6 +104,7 @@
 
 \item[Cost function]: 1 if action a results in a state $(t, m, b, f)$ where $t
 = m \neq f$ or where $m = b \neq f$, 0 otherwise
+
 \end{description}
 
 \end{enumerate}
@@ -121,6 +155,8 @@ and return.
 
 \subsection*{Simulated annealing}
 
+% TODO Charlie
+
 \subsection*{Genetic}
 This genetic algorithm is not guaranteed to find a clique and likely won't.
 Instead, we came up with a way of rating a graph's \emph{cliqueness}. If a
@@ -143,6 +179,57 @@ size and cliqueness (of desirable fitness) is found.
 % TODO parameter variations
 
 \section*{Part 4: AI in the World}
+
+\subsection*{Evolutionary Algorithm for Decryption of Monoalphabetic Homophonic
+Substitution Ciphers Encoded as Constraint Satisfaction Problems: David
+Oranchak}
+
+A homophonic substitution cipher is an encryption which maps each plaintext
+character in a message to one or more ciphertext symbols.  This type of
+encryption is much more difficult to decode than a monoalphabetic cipher, which
+is one in which each plain text letter is mapped to exactly one ciphertext
+letter.  David Oranchak uses a genetic algorithm in order to decipher
+homophonic substitution ciphers.  First, the algorithm finds the segment of the
+cipher in which the highest concentration of different cipher-text letters are
+(i.e.\ A portion such that (the number of unique ciphertext symbols in that
+section divided by the number of total unique ciphertext symbols in the entire
+message) is maximized). The population is a set of words from a dictionary
+(i.e.\ the english language) and the selected high-concentration of the
+cyphertext is matched up with these words, to check to see if it is a good
+match.  Oranchak defined two fitness functions.  The first fitness function was
+a measure of how many of the words outside of the high concentration section
+are actual words in the dictionary.  The second fitness function is measured by
+building a graph $G$ and letting each vertex be a found word in the cypher
+text.  For every conflict, in which two words do not match due to the
+cyphertext, an edge is placed between those vertices.  The second fitness
+function is a measure of the number of edges between the vertices, with fewer
+edges being proportional to higher fitness.  The merging process is done by
+running tournament selection of size two, with a small probability of selecting
+the less fit of the pair.  When parents merge, random character selections are
+swapped and there is a small chance of mutation.  The algorithm precisely
+decoded the Zodiac Killers homophonic substitution cipher.
+
+\subsection*{Using a genetic algorithm to determine StarCraft 2 build orders}
+
+In the game StarCraft 2, before interacting with the "enemy" you as the player
+have time to run a series of build orders.  Those build orders will determine
+how many of all your things and people you have and will thus determine how you
+are able to interact with your enemies.  In this genetic algorithm, the
+population is a set of build orders and the fitness function is how close that
+set of build orders gets you to some desired outcome.  This algorithm ignores
+all sets of build orders with a fitness of 0, which implies that the build
+orders are an invalid sequence.  The algorithm takes the most fit sets of build
+orders and combines them by concatenating sub-sets of them together.  There is
+also the chance of mutation, including insertion and deletion of a build order.
+In the end, the algorithm spits out the most fit set of build orders.  One of
+the pro's of this algorithm is that it might possibly give you an excellent
+SC2 opening strategy, and you wouldn't have to think about it at all.
+However, the fitness test is based upon reaching a "desired" state, which must
+be a subjectively chosen state, which means that that state isn't globally
+optimal.  This algorithm did come up with an extremely unorthodox strategy
+though which turned out to be extremely effective and nearly unbeatable.
+
+\emph{Source.} \texttt{http://lbrandy.com/blog/2010/11/using-genetic-algorithms-to-find-starcraft- 2-build-orders/}
 
 \section*{Part 5: Project Prep}
 
