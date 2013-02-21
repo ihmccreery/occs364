@@ -21,35 +21,29 @@
 
 \begin{description}
 
-\item[State space]
+    \item[State space] We have 4 locations $a,b,c,d$ and let $L=\{a,b,c,d\}$ where
+    $a:=\text{the door },b:=\text{the refrigerator starting spot },c:=\text{the papasan starting
+    spot }, d:=\text{the closet.}$ Our state space will be $L \times L\times L$ where the ordered
+    triple $(x,y,z)$ represents the location of the person, of the fridge, and of the papasan.
 
-\item[Start state]
+    \item[Start state]  The start state is $(a,b,c)$ which signifies that the person is at
+    the door, the fridge is in its start location and the papasan is in its start location.
 
-\item[Available actions]
+    \item[Available actions and successor function] There are two types of available
+    actions.  The person walks from one location to another or the person moves either the fridge or
+    papasan from one location to another.  The current state does not matter   if the person is
+    merely walking from one location to another.  From any state $(x,y,z)$, the state $(x',y,z)$ is
+    adjacent given any $x' \in L$. The person can move an item if the location of the person and the
+    item are the same.   For     any state $(x,x,z)$ we can move to any state $(x',x',z)$ for any
+    $x' \in L$ and likewise we can move from any state $(x,y,x)$ to any state $(x',y,x')$.
 
-\item[Successor function]
+    \item[Goal test] Our goal test is to check if we are at state $(d,d,d)$.
 
-\item[Goal test]
-
-\item[Cost function]
-
-\end{description}
-
-\item
-
-\begin{description}
-
-\item[State space]
-
-\item[Start state]
-
-\item[Available actions]
-
-\item[Successor function]
-
-\item[Goal test]
-
-\item[Cost function]
+    \item[Cost function] The optimal path would be to go to the fridge and move it and then
+    get the papasan and move it and put it on the fridge.  So, our cost function should have an
+    increased cost for moving the papasan before the fridge and also should have a higher cost for
+    moving the items anywhere besides to the closet.  The cheapest edges should be the ones which
+    represent moving the fridge first and then the papasan to the clost.
 
 \end{description}
 
@@ -57,21 +51,56 @@
 
 \begin{description}
 
-% TODO do we need to give more explanation?
+    \item[State space] The state space is the set of all actors, where each actor has a
+    state and each pair of actors who were in a movie together have two directed edges between them,
+    one going each way.  The edges of this state space will be updated as the game is played.
 
-\item[State space] $\{(a,b) \mid a \in \{0, \dots, 3\}, b \in \{0, \dots, 5\} \}$
+    \item[Start state] In addition, there will be a start state which does not represent
+    any actor, but has an outward edge to every single vertex in the state space.  This represents
+    the start of the game.
+
+    \item[Available actions] A player can name an actor who starred in a movie with the
+    last named actor.  At the beginning of a person's turn, the current vertex in the graph will
+    correspond to the last named actor.  When an actor is named, all edges heading into it will be
+    removed from the graph. The player whose turn it is must name an actor such that that named
+    actor's vertex is adjacent to the current actor and that edge goes from the current actor to the
+    new actor.
+
+    \item[Successor function] Given a newly named actor.  If the actor is a valid choice,
+    the vertex corresponding to that actor becomes the new current vertex and all edges heading into
+    it will be removed from the graph.  If the choice isn't valid then the player loses or gets to
+    go again depending how friendly the game is.  
+
+    \item[Goal test] If a player gives a valid answer, and that answer's vertex has no
+    outbound edges, that player wins because the next player has no valid guesses.
+
+    \item[Cost function] There is no need for a cost function, if the only goal is to be
+    able to check to see if one player has won the game.  If the point is to give strategy for
+    playing the game, a cost function will not be the best way to do so because the cost function
+    would have to constantly update and a certain move could be good or bad depending on the
+    opponents next move.
+
+\end{description}
+
+\item
+
+\begin{description}
+
+\item[State space] $\{(a,b) \mid a \in \{0, \dots, 3\}, b \in \{0, \dots, 5\} \}$, where $a$ represents the amount of water in the 3-gallon container, and $b$ the 5-gallon.
 
 \item[Start state] $(0, 0)$
 
-\item[Available actions] from $(a, b)$:
+\item[Available actions and successor functions] from $(a, b)$:
 \begin{align*}
-	a &\rightarrow 0 \\
-	b &\rightarrow 0
-	% TODO others... are these right?
+	(a, b) &\rightarrow (0, b), \text{ for emptying $a$} \\
+	(a, b) &\rightarrow (a, 0), \text{ for emptying $b$} \\
+	(a, b) &\rightarrow (3, b), \text{ for filling $a$} \\
+	(a, b) &\rightarrow (a, 5), \text{ for filling $b$} \\
+	\text{if $a + b \geq 3$}, (a, b) &\rightarrow (3, b - (3 - a)) \text{ for pouring $b$ into $a$ until $a$ is full} \\
+	\text{if $a + b < 3$}, (a, b) &\rightarrow (a+b, 0) \text{ for emptying $b$ into $a$} \\
+	\text{if $a + b \geq 5$}, (a, b) &\rightarrow (a - (5 - b), 5) \text{ for pouring $a$ into $b$ until $b$ is full} \\
+	\text{if $a + b < 5$}, (a, b) &\rightarrow (0, a+b) \text{ for emptying $a$ into $b$}
 \end{align*}
-
-\item[Successor function] the state reached by applying an available action
-% TODO is this allowed? do we need more?
 
 \item[Goal test] is $b = 4$?
 
@@ -85,25 +114,25 @@
 
 % TODO do we need to give more explanation?
 
-\item[State space] $\{(t, m, b, f) \mid t, m, b, f \in \{0, 1\}\}$
+\item[State space] $\{(t, m, b, f) \mid t, m, b, f \in \{0, 1\}\}$, where $t,
+m, b, f$ represent the T-rex, monkey, banana, and farmer, respectively; 0 means the actor is on the
+start shore, 1 represents the opposite shore.
 
 \item[Start state] $(0, 0, 0, 0)$
 
-\item[Available actions] from $(t, m, b, f)$:
+\item[Available actions and successor functions] from $(t, m, b, f)$:
 \begin{align*}
-	&\text{ invert $f$ (change it from 0 to 1 or from 1 to 0),} \\
-	\text{if } t = f, &\text{ invert both $t$ and $f$,} \\
-	\text{if } m = f, &\text{ invert both $m$ and $f$,} \\
-	\text{if } b = f, &\text{ invert both $b$ and $f$}
+	&\text{ invert $f$ (change it from 0 to 1 or from 1 to 0), for the farmer crossing by himself} \\
+	\text{if } t = f, &\text{ invert both $t$ and $f$, for the farmer taking the T-rex across} \\
+	\text{if } m = f, &\text{ invert both $m$ and $f$, for the farmer taking the monkey across} \\
+	\text{if } b = f, &\text{ invert both $b$ and $f$, for the farmer taking the banana across}
 \end{align*}
-
-\item[Successor function] the state reached by applying an available action
-% TODO is this allowed? do we need more?
 
 \item[Goal test]: is the state $(1, 1, 1, 1)$?
 
-\item[Cost function]: 1 if action a results in a state $(t, m, b, f)$ where $t
-= m \neq f$ or where $m = b \neq f$, 0 otherwise
+\item[Cost function]: $\infty$ if action a results in a state $(t, m, b, f)$ where $t
+= m \neq f$ or where $m = b \neq f$, 1 otherwise; leaving the T-rex and monkey together or the
+monkey and banana together will result in losing the monkey or the banana.
 
 \end{description}
 
@@ -154,8 +183,27 @@ vertex $y$ that is a neighbor of all vertices in $s$.  Repeat until there is no 
 and return.
 
 \subsection*{Simulated annealing}
+We can approximate the best maximum clique in a graph $G$ with this simulated
+annealing algorithm.  First, select a single vertex $v \in G$ and let the list
+$C = \{v\}$ and let the list $Q = \{u \mid u \text{ is adjacent to all vertices
+in } C\}$.  $C$ is the list representing the clique and $Q$ is the list which
+represents all vertices which may be added to the clique.  For each iteration
+of the algorithm, select a random vertex $v \in C \cup Q$.  If $v$ is in $Q$,
+remove $v$ from $Q$ and add it to $C$ and then update $Q$ to account for $v$
+now being in $C$.  If $v$ is in $C$, with probability $e^{((|C|-1)-|C|)/T} =
+e^{-1/T}$ remove $v$ from $C$ and add it to $Q$ and then update $Q$
+accordingly.  At the end of the algorithm, return $C$.  
 
-% TODO Charlie
+In this algorithm we build a clique starting out from a single vertex.  We add
+vertices to the clique that can be added while the clique remains a clique and
+we, with some probability, remove vertices already placed in the clique.  By
+being able to remove vertices from the clique we are able to backtrack out of
+local minimums.  For variations on this, you could build a priority queue for
+$Q$ instead of just a list of vertices, and you could select the next vertex to
+add (or remove) based on the number of edges (or some other criterion) incident
+to that vertex.  The probability is based on the function, given a state $s$,
+$f(s) = |C|$.  Thus if we are considering removing some vertex, $f(next) = |C|
+- 1$, and that is how the probability above was defined.
 
 \subsection*{Genetic}
 This genetic algorithm is not guaranteed to find a clique and likely won't.
@@ -180,9 +228,7 @@ size and cliqueness (of desirable fitness) is found.
 
 \section*{Part 4: AI in the World}
 
-\subsection*{Evolutionary Algorithm for Decryption of Monoalphabetic Homophonic
-Substitution Ciphers Encoded as Constraint Satisfaction Problems: David
-Oranchak}
+\subsection*{Ciphers}
 
 A homophonic substitution cipher is an encryption which maps each plaintext
 character in a message to one or more ciphertext symbols.  This type of
@@ -208,6 +254,10 @@ running tournament selection of size two, with a small probability of selecting
 the less fit of the pair.  When parents merge, random character selections are
 swapped and there is a small chance of mutation.  The algorithm precisely
 decoded the Zodiac Killers homophonic substitution cipher.
+
+\emph{Source.} Oranchak, David.  \emph{Evolutionary Algorithm for Decryption of
+Monoalphabetic Homophonic Substitution Ciphers Encoded as Constraint
+Satisfaction Problems.}
 
 \subsection*{Using a genetic algorithm to determine StarCraft 2 build orders}
 
@@ -248,6 +298,10 @@ hill climbing, annealing, or genetic. If the T functions are encoded as
 $X$-tuples $(T_1, T_2, \dots, T_X)$, then two $T$-functions could be “mated” by
 combining them step-wise at $X/2$.
 
+This would be interesting because while the purpose of having a decreasing
+temperature is clear, it is not so obvious why different rates of decrease
+would be better suited to a certain problem.
+
 \subsection*{Neural Networks}
 Evolve (search for) a neural network for accomplishing simple yet novel task. A
 neural network can be straightforwardly modeled by a matrix (or “connectrix”)
@@ -261,6 +315,9 @@ picture is of a human being or a dog's face, though even that may be too
 complicated. Simulated annealing may be the best search option\----an action could
 be to add or remove or change the strength of a synapse, or the firing behavior
 of a neuron.
+
+Hill climbing would not allow for enough exploration, and genetic cross-overs
+do not seem appropriate for this problem\----too much change at once.
 
 \honor
 
