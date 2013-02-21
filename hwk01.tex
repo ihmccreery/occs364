@@ -15,6 +15,66 @@
 
 \section*{Part 1: Search Problem Formulation}
 
+\begin{enumerate}
+
+\item
+
+\item
+
+\item
+
+\begin{description}
+
+% TODO do we need to give more explanation?
+
+\item[State space] $\{(a,b) \mid a \in \{0, \dots, 3\}, b \in \{0, \dots, 5\} \}$
+
+\item[Start state] $(0, 0)$
+
+\item[Available actions] from $(a, b)$:
+\begin{align*}
+	a &\rightarrow 0 \\
+	b &\rightarrow 0
+	% TODO others... are these right?
+\end{align*}
+
+\item[Successor function] the state reached by applying an available action
+% TODO is this allowed? do we need more?
+
+\item[Goal test]: is $b = 4$?
+
+\item[Cost function]: uniform cost; any action costs 1
+\end{description}
+
+\item
+
+\begin{description}
+
+% TODO do we need to give more explanation?
+
+\item[State space] $\{(t, m, b, f) \mid t, m, b, f \in \{0, 1\}\}$
+
+\item[Start state] $(0, 0, 0, 0)$
+
+\item[Available actions] from $(t, m, b, f)$:
+\begin{align*}
+	&\text{ invert $f$ (change it from 0 to 1 or from 1 to 0),} \\
+	\text{if } t = f, &\text{ invert both $t$ and $f$,} \\
+	\text{if } m = f, &\text{ invert both $m$ and $f$,} \\
+	\text{if } b = f, &\text{ invert both $b$ and $f$}
+\end{align*}
+
+\item[Successor function] the state reached by applying an available action
+% TODO is this allowed? do we need more?
+
+\item[Goal test]: is the state $(1, 1, 1, 1)$?
+
+\item[Cost function]: 1 if action a results in a state $(t, m, b, f)$ where $t
+= m \neq f$ or where $m = b \neq f$, 0 otherwise
+\end{description}
+
+\end{enumerate}
+
 \section*{Part 2: Heuristic Functions}
 
 \emph{Theorem.}
@@ -62,10 +122,58 @@ and return.
 \subsection*{Simulated annealing}
 
 \subsection*{Genetic}
+This genetic algorithm is not guaranteed to find a clique and likely won't.
+Instead, we came up with a way of rating a graph's \emph{cliqueness}. If a
+clique and had $n$ vertices, then it would necessarily have $\frac{n(n-1)}{2}$
+edges. Any fewer edges means its cliqueness is less. Therefore, if a graph has $e$
+edges, then a measure of its cliqueness could be $\frac{2e}{n(n-1)}$. This would be 1 if
+the graph is a clique and less otherwise. To favor large cliques, our fitness
+function for a given graph or sub-graph will be
+\[
+f(G) = \Bigg(\frac{2e}{n(n-1)}\Bigg)n.
+\]
+
+Given a graph, start with $x$ random subgraphs. Compute their fitness.
+Select the two fittest subgraphs. % TODO this should be probabalistic
+Mate them by selecting a random subset of the union of
+the two parent subgraphs, and mutate by adding an additional random vertex.
+Create $x$ off-spring this way, and repeat. Iterate until a subgraph of desirable
+size and cliqueness (of desirable fitness) is found.
+
+% TODO parameter variations
 
 \section*{Part 4: AI in the World}
 
 \section*{Part 5: Project Prep}
+
+% TODO these both probably need more (why is it interesting?  why use these search techniques?)
+
+\subsection*{Search Search}
+Given a certain search problem, what annealing function finds the best solution
+on average? Fix the number of search steps to $X$. Then search for the optimal
+function temperature $T(t)$ where $t \leq X$. Does a linearly decreasing temperature
+tend to find the best solution for a given problem.  Asymptotically
+decreasing?. The state space would be different functions $T(t)$ and fitness of
+that state would be the average success of that function at finding a good
+solution for a particular problem. This would likely require lots of
+computation, perhaps over several days. The “search search” itself could be
+hill climbing, annealing, or genetic. If the T functions are encoded as
+$X$-tuples $(T_1, T_2, \dots, T_X)$, then two $T$-functions could be “mated” by
+combining them step-wise at $X/2$.
+
+\subsection*{Neural Networks}
+Evolve (search for) a neural network for accomplishing simple yet novel task. A
+neural network can be straightforwardly modeled by a matrix (or “connectrix”)
+representing synapses between neurons (edges between vertices). The state space
+would be huge. A 30-neuron network would be a matrix with 900 entries. Then,
+each entry would have a range of values.
+
+The fitness of a network would be it's average success (over a fixed number of
+trials) at solving a particular kind of problem such as detecting whether a
+picture is of a human being or a dog's face, though even that may be too
+complicated. Simulated annealing may be the best search option\----an action could
+be to add or remove or change the strength of a synapse, or the firing behavior
+of a neuron.
 
 \honor
 
