@@ -1,0 +1,67 @@
+% Another example tex file
+% Oberlin College
+% Isaac Hollander McCreery
+
+% document information
+\newcommand{\course}{CSCI 364}
+\newcommand{\semester}{Spring 2013}
+\newcommand{\name}{Artificial Intelligence}
+\newcommand{\student}{Charles Marks, Isaac Hollander McCreery, Nick Towbin-Jones}
+\newcommand{\lstudent}{Marks, McCreery, Towbin-Jones}
+
+% packages
+\usepackage[parfill]{parskip} % begin paragraphs with an empty line rather than an indent
+\usepackage{fullpage} % use more of the page
+\usepackage{amsmath,amssymb,amsthm} % math stuff
+\usepackage{paralist}
+\usepackage{algorithm}
+\usepackage[noend]{algorithmic}
+\usepackage{fancyhdr} % headers
+
+% formatting pages, etc.
+\renewcommand{\baselinestretch}{1.1}
+\setlength{\headheight}{15.2pt}
+\setlength{\headsep}{15pt}
+\setlength{\textheight}{592pt}
+\setlength{\footskip}{30pt}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% format the header
+\fancyhf{}
+\lhead{\lstudent}
+\rhead{\today}
+\cfoot{\thepage}
+\pagestyle{fancy}
+
+% format the title
+\renewcommand\maketitle{
+\begin{center}
+	\textsc{\Large \name: Homework \#\hwk} \\ [12pt]
+	\student \\ [12pt]
+	\today
+\end{center}
+}
+
+% list formatting
+%\setcounter{secnumdepth}{0}
+\renewcommand{\theenumi}{\alph{enumi}.}
+\renewcommand{\labelenumi}{\theenumi}
+
+%%
+% The following are definitions so that you can use numbered lemmas, claims, etc.
+%%
+\newtheorem{lemma}{Lemma}
+\newtheorem*{lem}{Lemma}
+\newtheorem*{thm}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{notation}{Notation}
+\newtheorem*{claim}{Claim}
+\newtheorem*{fclaim}{False Claim}
+\newtheorem{observation}{Observation}
+\newtheorem{conjecture}[lemma]{Conjecture}
+\newtheorem{theorem}[lemma]{Theorem}
+\newtheorem{corollary}[lemma]{Corollary}
+\newtheorem{proposition}[lemma]{Proposition}
+\newtheorem*{rt}{Running Time}
+
