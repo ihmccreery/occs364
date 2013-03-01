@@ -17,6 +17,32 @@
 
 \section*{Part 2: Minimax}
 
+\begin{enumerate}
+
+\item
+If \es can identify a winning move at the top of the game tree, \es would
+never have a reason for making a different move from the one identified by minimax.  A \emph{winning
+move} for \es is a move such that, no matter how the opponent responds, \es 
+has another winning move, or has a move that leads directly to a win.  Put another way, taking a
+succession of repeated winning moves guarantees \es a win.
+
+\item
+Assuming that the best possible move found by \es based on a complete minimax search
+would lead to a draw, \es might want to choose a different move than the one identified
+by minimax.
+
+Since the opponent can make errors, it is possible that there is some move that would lead to the
+opponent not choosing the optimal move, which might allow \es a winning move.  More
+concretely, consider two moves:
+\begin{enumerate}
+\item a move where all responses by the opponent lead to a draw;
+\item a move where the optimal response by the opponent leads to a loss for \textsc{es}, but all the
+moves recommended by the opponent's heuristic function lead to winning moves for \textsc{es}.
+\end{enumerate}
+Clearly \es should take (b) because \es will then win.
+
+\end{enumerate}
+
 \section*{Part 3: CSPs}
 
 \section*{Part 4: Propositional Logic}
