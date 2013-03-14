@@ -50,6 +50,14 @@ def initialClauses():
         clauses.append([getPairNumFromNames(p,c) for p in extendedPlayers])
 
     # A card cannot be in two places.
+    for c in cards:
+        for p1 in extendedPlayers:
+            for p2 in extendedPlayers:
+                if p1 != p2:
+                    clauses.append([getPairNumFromNames(p1,c),getPairNumFromNames(p2,c)])
+
+    for i in clauses:
+        print i
 
     # At least one card of each category is in the case file.
 
@@ -133,4 +141,5 @@ def playClue():
     printNotepad(clauses)
 
 if __name__ == '__main__':
-    playClue()
+    initialClauses()
+    #playClue()
