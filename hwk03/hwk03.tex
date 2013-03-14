@@ -1,0 +1,58 @@
+% Another example tex file
+% Oberlin College
+% Isaac Hollander McCreery
+
+\documentclass[11pt]{amsart}
+
+% document information
+\newcommand{\hwk}{3}
+\newcommand{\honor}{We affirm that we have adhered to the honor code on this assignment.}
+
+\input{preamble}
+
+\begin{document}
+\maketitle
+
+\section*{Part 1: Probability Conundrum}
+
+\section*{Part 2: Bayes' Theorem}
+
+\section*{Part 3: Bayesian Networks}
+
+\begin{enumerate}
+
+\item
+\begin{align*}
+P(A \wedge B \wedge C \wedge D \wedge E)
+	&= P(A) P(B) P(C) P(D | A \wedge B) P(E | B \wedge C) \\
+	&= 0.2 \times 0.5 \times 0.8 \times 0.1 \times 0.3 \\
+	&= 0.0024
+\end{align*}
+
+\item
+\begin{align*}
+P(\neg A \wedge \neg B \wedge \neg C \wedge \neg D \wedge \neg E)
+	&= P(\neg A) P(\neg B) P(\neg C) P(\neg D | \neg A \wedge \neg B) P(\neg E | \neg B \wedge \neg C) \\
+	&= 0.8 \times 0.5 \times 0.2 \times 0.9 \times 0.7 \\
+	&= 0.0504
+\end{align*}
+
+\item
+\begin{align*}
+P(\neg A \wedge B \wedge C \wedge D \wedge E)
+	&= P(\neg A) P(B) P(C) P(D | \neg A \wedge B) P(E | B \wedge C) \\
+	&= 0.8 \times 0.5 \times 0.8 \times 0.6 \times 0.3 \\
+	&= 0.0576
+\end{align*}
+
+\end{enumerate}
+
+\section*{Part 4: Bayesian Networks, Part II}
+
+\section*{Part 5: AI in the World}
+
+\section*{Part 6: Project Prep}
+
+\honor
+
+\end{document}
