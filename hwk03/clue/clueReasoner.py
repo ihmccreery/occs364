@@ -35,48 +35,102 @@ rooms = ["ha", "lo", "di", "ki", "ba", "co", "bi", "li", "st"]
 cards = suspects + weapons + rooms
 
 def getPairNumFromNames(player,card):
+    global extendedPlayers
+    global cards
     return getPairNumFromPositions(extendedPlayers.index(player),
-                                   cards.index(card))
+           cards.index(card))
 
 def getPairNumFromPositions(player,card):
-    return player*len(cards) + card + 1
+     global cards
+     return player*len(cards) + card + 1
 
 # TO BE IMPLEMENTED FOR THIS HOMEWORK
 def initialClauses():
     clauses = []
-
+    global cards
+    global extendedPlayers
+    global suspects
+    global weapons
+    global rooms
+    global caseFile
     # Each card is in at least one place (including case file).
     for c in cards:
         clauses.append([getPairNumFromNames(p,c) for p in extendedPlayers])
 
     # A card cannot be in two places.
     for c in cards:
-        for p1 in extendedPlayers:
-            for p2 in extendedPlayers:
-                if p1 != p2:
-                    clauses.append([getPairNumFromNames(p1,c),getPairNumFromNames(p2,c)])
-
-    for i in clauses:
-        print i
-
+        for p in extendedPlayers:
+            for q in extendedPlayers:
+                if q is not p:
+                    clauses.append([(-1)*getPairNumFromNames(p,c), (-1)*getPairNumFromNames(q,c)])
     # At least one card of each category is in the case file.
-
+    clauses.append([getPairNumFromNames(caseFile, c) for c in suspects])
+    clauses.append([getPairNumFromNames(caseFile, c) for c in weapons])
+    clauses.append([getPairNumFromNames(caseFile, c) for c in rooms])
     # No two cards in each category can both be in the case file.
-
+    for c in suspects:
+        for d in suspects:
+            if c is not d:
+                clauses.append([(-1)*getPairNumFromNames(caseFile, c), (-1)*getPairNumFromNames(caseFile,d)])
+    for c in weapons:
+        for d in weapons:
+            if c is not d:
+                clauses.append([(-1)*getPairNumFromNames(caseFile, c), (-1)*getPairNumFromNames(caseFile,d)])
+    for c in rooms:
+         for d in rooms:
+             if c is not d:
+                clauses.append([(-1)*getPairNumFromNames(caseFile, c), (-1)*getPairNumFromNames(caseFile,d)])
     return clauses
 
-# TO BE IMPLEMENTED FOR THIS HOMEWORK 
+# TO BE IMPLEMENTED FOR THIS HOMEWORK
 def hand(player,cards):
-    return []
+    clauses = []
+    for c in cards:
+        clauses.append([getPairNumFromNames(player,c)])
+    return clauses
 
 
 # TO BE IMPLEMENTED FOR THIS HOMEWORK
 def suggest(suggester,card1,card2,card3,refuter,cardShown):
-    return []
+    global players
+    clauses = []
+    if refuter is None:
+        for p in players:
+            if p is not suggester:
+                clauses.append([(-1)*getPairNumFromNames(p, card1)])
+                clauses.append([(-1)*getPairNumFromNames(p, card2)])
+                clauses.append([(-1)*getPairNumFromNames(p, card3)])
+    else:
+        p = (players.index(suggester) + 1)%len(players)
+        while p is not players.index(refuter):
+            clauses.append([(-1)*getPairNumFromNames(players[p], card1)])
+            clauses.append([(-1)*getPairNumFromNames(players[p], card2)])
+            clauses.append([(-1)*getPairNumFromNames(players[p], card3)])
+            p = (p+1)%len(players)
 
-# TO BE IMPLEMENTED FOR THIS HOMEWORK 
+        if cardShown is None:
+            clauses.append([getPairNumFromNames(players[p], card1), getPairNumFromNames(players[p], card2), getPairNumFromNames(players[p], card3)])
+        else:
+            clauses.append([getPairNumFromNames(players[p], cardShown)])
+    return clauses
+
+# TO BE IMPLEMENTED FOR THIS HOMEWORK
 def accuse(accuser,card1,card2,card3,isCorrect):
-    return []
+    global caseFile
+    clauses = []
+    if isCorrect:
+        clauses.append([getPairNumFromNames(caseFile, card1)])
+        clauses.append([getPairNumFromNames(caseFile, card2)])
+        clauses.append([getPairNumFromNames(caseFile, card3)])
+    else:
+        clauses.append([(-1)*getPairNumFromNames(caseFile, card1), (-1)*getPairNumFromNames(caseFile, card2), (-1)*getPairNumFromNames(caseFile, card3)])
+
+    clauses.append([(-1)*getPairNumFromNames(accuser, card1)])
+    clauses.append([(-1)*getPairNumFromNames(accuser, card2)])
+    clauses.append([(-1)*getPairNumFromNames(accuser, card3)])
+
+
+    return clauses
 
 
 
@@ -141,5 +195,4 @@ def playClue():
     printNotepad(clauses)
 
 if __name__ == '__main__':
-    initialClauses()
-    #playClue()
+    playClue()
