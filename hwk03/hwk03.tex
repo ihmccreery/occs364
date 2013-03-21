@@ -133,11 +133,30 @@ associated with water management (1031).
 
 Source:
 Henriksen, Hans Jørgen \& Heidi Christiansen Barlebo.
-"Reflections on the use of Bayesian belief networks for adaptive management".
+``Reflections on the use of Bayesian belief networks for adaptive management''.
 \emph{Journal of Environmental Management}.
 88 (2008) 1025-1036.
 
-\item[Other application]
+\item[Automated Essay Scoring Using Bayes' Theorem]
+This research paper goes over a program which grades human-written essays.
+Initially, the program was given four-hundred some papers that were
+human-graded and the program was given those grades.  The program built
+Bayesian models, a Bernoulli model and a multinomial model, using single words,
+two-word pairs and arguments, where arguments are defined as one word (or
+two-word) before another.  The idea was, for example, the word ``x'' occurs more
+in good papers and so, when the word ``x'' is found, the chances of the paper
+being a good paper is higher.  Likewise, an argument ``xy'' could be a sequence
+which often occurs in bad papers and thus if a paper reads an ``x'' and then a
+``y'', there is an increased probability that the paper is bad.  In the end,
+given only 462 total human-graded papers as a base, the program was able to
+grade papers at an accuracy of 81\% (this was figured as the papers were also
+human-graded by a grader who did not know the program's grade and vice versa).
+
+Source:
+Rudner, Lawrence M. \& Tahung Liang.
+``Automated Essay Scoring Using Bayes’ Theorem''.
+\emph{The Journal of Technology, Learning, and Assessment}.
+Volume 1, Number 2: June 2002.
 
 \end{description}
 
@@ -169,7 +188,28 @@ Oberlin, gentrification and changes real estate prices\----environmental impact 
 materials used\----and social impact\----recognition, leadership and proof-of-concept value, changes in tensions between
 the Town and the College.
 
-\item[Other project]
+\item[Quotation and Exclamation]
+Build a Bayesian network that models the probability that an excerpt of plain
+text was part of a quotation (perhaps also whether it was italicized or in
+bold\----anything boolean like that) in it's original context.  Along the same
+lines, what words characterize sentences that end in exclamation points?  This
+would be similar to the spam filter idea.  It could be accumulated by parsing
+text from source (perhaps narrowing the input text would yield more interesting
+results).  What we'd be able to answer: given an excerpt of text, what is the
+probability that it was originally part of a quotation (i.e. between ``''
+symbols).  What we wouldn't be able to do: given an excerpt of text that has
+had the quotation marks removed, make a guess as to where quotation marks
+should be (that would be more appropriate for hidden Markov stuff).  With
+well-formed text, it is easy to know whether a word was in quotes (whether or
+not you've seen an odd number of quotation marks so far\dots new paragraphs might
+require special attention) or if the sentences ends with an exclamation point.
+It seems like there could be practical application of the results, and if not,
+it would still be interesting to see general trends that distinguish written
+words from allegedly or hypothetically spoken words, and/or sentences that are
+supposed to have extra ``enthusiasm''.  Non-practical application: given a
+paragraph that ends only in boring periods, make it instantly more fun to read
+by replacing some of the periods with exclamation marks based on conditional
+probabilities.
 
 \end{description}
 
